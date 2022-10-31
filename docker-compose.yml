@@ -1,0 +1,42 @@
+version: "3.3"
+services:
+  # mysql:
+  #   image: mysql:latest
+  #   container_name: mysql
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=password
+  #   volumes:
+  #     - ./volumes:/var/lib/mysql
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:latest
+  #   container_name: phpmyadmin
+  #   environment:
+  #     - UPLOAD_LIMIT=100000000
+  #   links:
+  #     - mysql:db
+  #   ports:
+  #     - 8081:80
+
+  nodejs:
+    build: nodejs/
+    image: nodejs:1.0
+    container_name: nodejs
+    volumes:
+      - ./nodejs:/usr/src/app/
+    environment:
+      - NAME=ITP
+    ports:
+      - 3001:3001
+  nextjs:
+      build: nextjs/
+      image: nextjs:1.0
+      container_name: nextjs
+      volumes:
+        - ./nextjs:/usr/src/app/
+      ports:
+        - 3000:3000
+
+networks:
+  default:
+    external:
+      name: web
